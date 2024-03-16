@@ -16,7 +16,7 @@ function extractData() {
         'HEMATOCRITO': 'HTO',
         'LEUCOCITOS': 'LEU',
         'NEUTROFILOS SEGMENTADOS %': 'NEU SEG',
-        'PLAQUETAS': 'PLAQ'
+        'PLAQUETAS': 'PLAQ',
     };
     for (var key in abbreviations) {
         if (abbreviations.hasOwnProperty(key) && data.hasOwnProperty(key)) {
