@@ -1,15 +1,7 @@
-function extractData() {
-    var text = document.getElementById('inputArea').value;
-    var lines = text.split('\n');
-    var data = {};
-    for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-        if (line && !isNaN(lines[i + 1])) {
-            data[line] = lines[i + 1];
-            i++;
-        }
-    }
-    var output = '';
+document.getElementById('processButton').addEventListener('click', function() {
+    var inputText = document.getElementById('inputArea').value;
+    var lines = inputText.split('\n');
+    var outputText = '';
     var abbreviations = {
         'ERITROCITOS': 'ERI',
         'HEMOGLOBINA': 'HB',
@@ -40,13 +32,18 @@ function extractData() {
         'LACTATO': 'LAC',
         'HC03 ACTUAL': 'HC03',
         '% DE SATURACIÓN O2': 'SATO2'
-        
     };
-    for (var key in abbreviations) {
-        if (abbreviations.hasOwnProperty(key) && data.hasOwnProperty(key)) {
-            output += abbreviations[key] + ': ' + data[key] + ', ';
+    for (var i = 0; i < lines.length; i++) {
+        var line = lines[i].trim();
+        for (var key in abbreviations) {
+            if (line.startsWith(key)) {
+                var parts = line.split(' ');
+                var value = parts[parts.length - 3];
+                if (!isNaN(value)) {
+                    outputText += abbreviations[key] + ': ' + value + ', ';
+                }
+            }
         }
     }
-    document.getElementById('outputArea').innerText = output.slice(0, -2);
-}
-
+    document.getElementById('outputArea').innerText = outputText.slice(0, -2);
+});
