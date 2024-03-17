@@ -20,6 +20,8 @@ function extractData() {
         'CREATININA SERICA': 'CREA',
         'UREA': 'UREA',
         'GLUCOSA': 'GLU',
+        'ACTIVADO': 'TPT',
+        'TIEMPO DE PROTROMBINA': 'TP',
         'TRIGLICERIDOS': 'TAG',
         'COLESTEROL': 'COL',
         'SODIO': 'Na',
