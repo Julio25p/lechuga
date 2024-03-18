@@ -1,8 +1,7 @@
-document.getElementById('processButton').addEventListener('click', function() {
+function extractData() {
     var inputText = document.getElementById('inputArea').value;
     var lines = inputText.split('\n');
-    var outputText = '';
-    var abbreviations = {
+    var labData = {
         'ERITROCITOS': 'ERI',
         'HEMOGLOBINA': 'HB',
         'HEMATOCRITO': 'HTO',
@@ -31,19 +30,41 @@ document.getElementById('processButton').addEventListener('click', function() {
         'PO2': 'Po2',
         'LACTATO': 'LAC',
         'HC03 ACTUAL': 'HC03',
-        '% DE SATURACIÓN O2': 'SATO2'
+        '% DE SATURACIÓN O2': 'SATO2',
+        'Proteinas': 'PROT',
+        'Glucosa': 'GLUC',
+        'Cuerpos cetónicos': 'CETONAS',
+        'Nitritos': 'NITRITOS',
+        'Esterasa Leucocitaria': 'ESTERASA',
+        'Leucocitos': 'LEUC',
+        'Bacterias': 'BAC',
+        'Levaduras': 'LEV',
+        'Cilindros': 'CILINDROS',
+        'Cristales FOSFATOS AMORFOS': 'FOSFATOS',
+        'EXAMEN GENERAL DE ORINA': 'EGO'
     };
+    var outputText = '';
     for (var i = 0; i < lines.length; i++) {
-        var line = lines[i].trim();
-        for (var key in abbreviations) {
-            if (line.startsWith(key)) {
-                var parts = line.split(' ');
-                var value = parts[parts.length - 3];
-                if (!isNaN(value)) {
-                    outputText += abbreviations[key] + ': ' + value + ', ';
+        var line = lines[i];
+        for (var lab in labData) {
+            if (line.includes(lab)) {
+                if (lab === 'EXAMEN GENERAL DE ORINA') {
+                    outputText += labData[lab] + ' ';
+                } else {
+                    var value = line.split(lab)[1].trim().split(' ')[0];
+                    outputText += labData[lab] + ': ' + value + ', ';
                 }
             }
         }
     }
-    document.getElementById('outputArea').innerText = outputText.slice(0, -2);
-});
+    var date = new Date();
+    var formattedDate = date.getDate() + '/' + (date.getMonth() + 1);
+    outputText = formattedDate + ' ' + outputText;
+    document.getElementById('outputArea').innerText = outputText;
+}
+
+function copyToClipboard() {
+    var outputText = document.getElementById('outputArea').innerText;
+    navigator.clipboard.writeText(outputText);
+}
+
