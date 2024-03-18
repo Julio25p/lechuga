@@ -40,7 +40,6 @@ function extractData() {
         'Bacterias': 'BAC',
         'Levaduras': 'LEV',
         'Cilindros': 'CILINDROS',
-        'Cristales FOSFATOS AMORFOS': 'FOSFATOS',
         'EXAMEN GENERAL DE ORINA': 'EGO'
     };
     var outputText = '';
