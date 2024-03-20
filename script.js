@@ -42,7 +42,6 @@ function extractData() {
         'Leucocitos': 'LEUC',
         'Bacterias': 'BAC',
         'Levaduras': 'LEV',
-        'Cilindros': 'CILINDROS',
         'EXAMEN GENERAL DE ORINA': 'EGO',
         'TROPONIN I': 'Trop I',
         'CREATINFOSFOQUINASA (CPK TOTAL)': 'CPK',
@@ -51,7 +50,8 @@ function extractData() {
         'FT3 TRIYODOTIRONINA LIBRE':'T3',
         'HORMONA ESTIMULANTE TIROIDES': 'TSH',
         'AMILASA SERICA': 'AMILASA',
-        'PROTEINA C REACTIVA (hs-CRP)': 'PCR'
+        'PROTEINA C REACTIVA (hs-CRP)': 'PCR',
+        'ANTIGENO PROSTATICO ESPECIFICO (PSA)': 'PSA'
     };
     var outputData = {};
     for (var i = 0; i < lines.length; i++) {
