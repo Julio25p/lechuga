@@ -42,7 +42,7 @@ function extractData() {
         'Leucocitos': 'LEUC',
         'Bacterias': 'BAC',
         'Levaduras': 'LEV',
-        'EXAMEN GENERAL DE ORINA': 'EGO',
+        //'EXAMEN GENERAL DE ORINA': 'EGO',
         'TROPONIN I': 'Trop I',
         'CREATINFOSFOQUINASA (CPK TOTAL)': 'CPK',
         'CK-MB': 'CK-MB',
