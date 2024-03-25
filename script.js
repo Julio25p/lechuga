@@ -27,8 +27,9 @@ function extractData() {
         'Cloro': 'Cl',
         'CALCIO SERICO': 'Ca',
         'FOSFORO SERICO': 'Po',
-        'MAGNESIO SERICO': 'MG',
+        'MAGNESIO SERICO': 'Mg',
         //PFH
+        'PROTEINAS TOTALES': 'PROT',
         'DESHIDROGENASA LÁCTICA (L)': 'LDH',
         'FOSFATASA ALCALINA': 'FA',
         'ALBUMINA': 'ALB',
@@ -52,26 +53,43 @@ function extractData() {
         'Nitritos': 'NITRITOS',
         'Esterasa Leucocitaria': 'ESTERASA',
         'Leucocitos': 'LEUC',
+        //Eritrocitos no por que aparecen dos veces en el ego, la primera en hb y solo esa aparece sin valor 
         'Bacterias': 'BAC',
         'Levaduras': 'LEV',
-        //ENZIMAS
+        //DIALISIS PERITONEAL
+        'Aspecto': 'CEL. DIALISIS PERITONEAL',
+        //ENZIMAS CARDIACAS
         'TROPONIN I': 'Trop I',
         'CREATINFOSFOQUINASA (CPK TOTAL)': 'CPK',
         'CK-MB': 'CK-MB',
+        //PERFIL TIROIDEO
         'FT4 TIROXINA LIBRE': 'T4',
         'FT3 TRIYODOTIRONINA LIBRE':'T3',
         'HORMONA ESTIMULANTE TIROIDES': 'TSH',
+        //ENZIMAS PANCREATICAS
         'AMILASA SERICA': 'AMILASA',
         'LIPASA SERICA': 'LIPASA',
-        'PROTEINA C REACTIVA (hs-CRP)': 'PCR',
-        'ANTIGENO PROSTATICO ESPECIFICO (PSA)': 'PSA',
         //MARCADORES
         'ALFA 1-FETOPROTEINA':'A-FETOPROT',
         'ANTIGENO CA 19-9': 'CA19-9',
         'ANTIGENO CARCINO EMBRIONARIO': 'A-CARCINOEMB',
         'ANTIGENO CA 15-3': 'CA13-3',
+        'ANTIGENO CA-125': 'CA-125',
+        'TITULACION DE HGC (FRACCION BETA)': 'B-HCG',
+        'ANTIGENO PROSTATICO ESPECIFICO (PSA)': 'PSA',
+        //FASE AGUDA
         'VELOCIDAD DE SEDIMENTACION GLOBULAR': 'VSG',
-        'PROLACTINA': 'PRL'
+        'DIMERO D': 'DIMERO D',
+        'PROTEINA C REACTIVA (hs-CRP)': 'PCR',
+        //CACA
+        'SANGRE OCULTA EN HECES': 'SOH',
+        'Antigeno de Helicobacter pylori': 'H.PYLORI',
+        //OTROS
+        //'INMUNOFLUORESCENCIA)': 'PROCA',
+        'PROLACTINA': 'PRL',
+        'FERRITINA': 'FERRITINA',
+        'FACTOR REUMATOIDE': 'FR',
+        'ANTIESTREPTOLISINAS': 'ASO'
     };
     var outputData = {};
     for (var i = 0; i < lines.length; i++) {
@@ -79,7 +97,7 @@ function extractData() {
         for (var lab in labData) {
             if (line.includes(lab) && !(labData[lab] in outputData)) {
                 var value;
-                if (lab === 'EXAMEN GENERAL DE ORINA' || lab === 'ACTIVADO') {
+                if (lab === 'EXAMEN GENERAL DE ORINA' || lab === 'ACTIVADO' || lab === '') {
                     value = lines[i + 1].trim().split(' ')[0];
                 } else {
                     value = line.split(lab)[1].trim().split(' ')[0];
