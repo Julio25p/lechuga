@@ -2,7 +2,7 @@ function extractData() {
     var inputText = document.getElementById('inputArea').value;
     var lines = inputText.split('\n');
     var labData = {
-        //Bh
+    //Bh
         'ERITROCITOS': 'ERI',
         'HEMOGLOBINA': 'HB',
         'HEMATOCRITO': 'HTO',
@@ -56,8 +56,6 @@ function extractData() {
         //Eritrocitos no por que aparecen dos veces en el ego, la primera en hb y solo esa aparece sin valor 
         'Bacterias': 'BAC',
         'Levaduras': 'LEV',
-        //DIALISIS PERITONEAL
-        'Aspecto': 'CEL. DIALISIS PERITONEAL',
         //ENZIMAS CARDIACAS
         'TROPONIN I': 'Trop I',
         'CREATINFOSFOQUINASA (CPK TOTAL)': 'CPK',
@@ -91,13 +89,20 @@ function extractData() {
         'FACTOR REUMATOIDE': 'FR',
         'ANTIESTREPTOLISINAS': 'ASO'
     };
-    var outputData = {};
+    var titles = {
+        'EXAMEN GENERAL DE ORINA': 'EGO',
+        'GASOMETRIA ARTERIAL': 'Gaso',
+        'CITOMETRIA HEMATICA': 'BH',
+        'ELECTROLITOS SERICOS': 'Eles'
+
+    };
+    var outputData = [];
     for (var i = 0; i < lines.length; i++) {
         var line = lines[i];
         for (var lab in labData) {
-            if (line.includes(lab) && !(labData[lab] in outputData)) {
+            if (line.includes(lab)) {
                 var value;
-                if (lab === 'EXAMEN GENERAL DE ORINA' || lab === 'ACTIVADO' || lab === '') {
+                if (lab === 'ACTIVADO') {
                     value = lines[i + 1].trim().split(' ')[0];
                 } else {
                     value = line.split(lab)[1].trim().split(' ')[0];
@@ -105,13 +110,27 @@ function extractData() {
                         value = lines[i + 1].trim().split(' ')[0];
                     }
                 }
-                outputData[labData[lab]] = value;
+                if (!outputData.some(data => data.key === labData[lab])) {
+                    outputData.push({key: labData[lab], value: value});
+                }
+            }
+        }
+        for (var title in titles) {
+            if (line.includes(title)) {
+                outputData.push({key: titles[title], value: ''});
             }
         }
     }
     var outputText = '';
-    for (var lab in outputData) {
-        outputText += lab + ': ' + outputData[lab] + ', ';
+    for (var i = 0; i < outputData.length; i++) {
+        var data = outputData[i];
+        outputText += data.key;
+        if (data.value !== '') {
+            outputText += ': ' + data.value;
+        }
+        if (i < outputData.length - 1) {
+            outputText += ', ';
+        }
     }
     var date = new Date();
     var formattedDate = date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear();
@@ -124,4 +143,7 @@ function copyToClipboard() {
     navigator.clipboard.writeText(outputText);
 }
 
-
+function clearAll() {
+    document.getElementById('inputArea').value = '';
+    document.getElementById('outputArea').innerText = '';
+}
